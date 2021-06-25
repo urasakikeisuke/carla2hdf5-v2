@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1152</width>
+    <height>822</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>CARLA2HDF5</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QGridLayout" name="main_gridLayout" rowstretch="1,6" columnstretch="5,5">
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="init_groupBox">
+        <property name="title">
+         <string>Initial Settings</string>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QHBoxLayout" name="init_horizontalLayout">
+           <item>
+            <widget class="QLabel" name="ip_address_label">
+             <property name="text">
+              <string>IP Address</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="ip_address_lineEdit">
+             <property name="text">
+              <string>localhost</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="port_label">
+             <property name="text">
+              <string>Port</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="port_spinBox">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>65535</number>
+             </property>
+             <property name="value">
+              <number>2000</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="connect_pushButton">
+           <property name="text">
+            <string>Connect</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Shift+C</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="tf_groupBox">
+        <property name="title">
+         <string>Transform</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QVBoxLayout" name="tf_verticalLayout"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="1" rowspan="2">
+       <widget class="QGroupBox" name="main_settings_groupBox">
+        <property name="title">
+         <string>Settings</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0,0,0,0,0,0,0,0,1">
+         <item>
+          <layout class="QHBoxLayout" name="settings_1_horizontalLayout" stretch="1,3,1,3">
+           <item>
+            <widget class="QLabel" name="map_label">
+             <property name="text">
+              <string>Map</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="map_comboBox"/>
+           </item>
+           <item>
+            <widget class="QLabel" name="weather_label">
+             <property name="text">
+              <string>Weather</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="weather_comboBox"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="settings_2_horizontalLayout" stretch="1,4,1,4">
+           <item>
+            <widget class="QLabel" name="seed_label">
+             <property name="text">
+              <string>Seed</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="seed_spinBox">
+             <property name="maximum">
+              <number>429496729</number>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+             <property name="value">
+              <number>1000</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="num_frames_label">
+             <property name="text">
+              <string># Frames</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="num_frames_spinBox">
+             <property name="suffix">
+              <string> </string>
+             </property>
+             <property name="maximum">
+              <number>429496729</number>
+             </property>
+             <property name="singleStep">
+              <number>100</number>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+             <property name="value">
+              <number>3000</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="settings_3_horizontalLayout" stretch="1,4,0">
+           <item>
+            <widget class="QLabel" name="num_npc_vehicles_label">
+             <property name="text">
+              <string># NPC Vehicles</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="num_npc_vehicles_spinBox">
+             <property name="maximum">
+              <number>429496729</number>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+             <property name="value">
+              <number>50</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="safe_spawn_checkBox">
+             <property name="text">
+              <string>Safe Spawn</string>
+             </property>
+             <property name="autoRepeat">
+              <bool>false</bool>
+             </property>
+             <property name="tristate">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="settings_4_horizontalLayout" stretch="0,0,0,0,0,0">
+           <item>
+            <widget class="QLabel" name="num_npc_walkers_label">
+             <property name="text">
+              <string># NPC Walkers</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="num_npc_walkers_spinBox">
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+             <property name="value">
+              <number>50</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="running_walker_label">
+             <property name="text">
+              <string>Running Walker</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="running_walker_doubleSpinBox">
+             <property name="suffix">
+              <string> [%]</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="value">
+              <double>10.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="road_crossing_walker_label">
+             <property name="text">
+              <string>Road Crossing Walker</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="road_crossing_walker_doubleSpinBox">
+             <property name="suffix">
+              <string> [%]</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="value">
+              <double>2.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="Line" name="line_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="settings_5_horizontalLayout">
+           <item>
+            <widget class="QLabel" name="global_distance_label">
+             <property name="text">
+              <string>Global Distance</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="global_distance_doubleSpinBox">
+             <property name="suffix">
+              <string> [m]</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="value">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="hybrid_physics_checkBox">
+             <property name="text">
+              <string>Hybrid Physics (HP)</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="hybrid_physics_radius_label">
+             <property name="text">
+              <string>HP Radius</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QDoubleSpinBox" name="hybrid_physics_radius_doubleSpinBox">
+             <property name="suffix">
+              <string> [m]</string>
+             </property>
+             <property name="decimals">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <double>65535.000000000000000</double>
+             </property>
+             <property name="value">
+              <double>50.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="super_hero_checkBox">
+             <property name="text">
+              <string>Super Hero</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="add_queue_pushButton">
+           <property name="text">
+            <string>Add Queue</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Shift+E</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="queue_groupBox">
+           <property name="title">
+            <string>Queue</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QTreeWidget" name="queue_treeWidget">
+              <property name="columnCount">
+               <number>5</number>
+              </property>
+              <column>
+               <property name="text">
+                <string>Map</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Weather</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Seed</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string># Frames</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Status</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1152</width>
+     <height>28</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
