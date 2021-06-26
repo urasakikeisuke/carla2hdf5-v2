@@ -33,7 +33,6 @@ RUN apt-get update && apt-get upgrade -y && \
         libreadline-dev \
         libsqlite3-dev \
         wget \
-        curl \
         llvm \
         libncurses5-dev \
         libncursesw5-dev \
@@ -77,10 +76,13 @@ RUN git clone https://github.com/pyenv/pyenv.git $PYENV_ROOT && \
     /usr/local/bin/python-build -v $PYTHON_VERSION $PYTHON_ROOT && \
     rm -rf $PYENV_ROOT
 
-RUN pip install -Iv \
+RUN pip3 install -Iv \
         setuptools==47.3.1 && \
-    pip install \
+    pip3 install \
         distro \
+        scikit-build \
+        cmake \
+        ninja \
         numpy \
         scipy \
         opencv-python==4.2.0.34 \
@@ -89,25 +91,22 @@ RUN pip install -Iv \
         PyOpenGL_accelerate \
         pyqtgraph \
         transforms3d \
-        pygame && \
-    pip install --trusted-host git-docker.tasakilab --extra-index-url http://git-docker.tasakilab:5500/simple h5datacreator
+        pygame
 
 RUN ln -s ${HOME}/local/python-${PYTHON_VERSION}/include/python3.7m ${HOME}/local/python-${PYTHON_VERSION}/include/python3.7
 
-RUN git clone -b ${CARLA_VERSION} https://github.com/carla-simulator/carla.git && \
+RUN pip3 install git+https://github.com/shikishima-TasakiLab/h5datacreator
+
+RUN git clone -b $CARLA_VERSION https://github.com/carla-simulator/carla.git && \
     cd carla && \
     make PythonAPI && \
     mkdir -p -v /opt/carla && \
     cp -r -v PythonAPI /opt/carla/ && \
-    curl -c /tmp/cookie "https://drive.google.com/uc?export=download&id=1Hl9JvIkC0WmAr0iM-Op2KmQC6Ha4allB" > /dev/nullc && \
-    CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)" && \
-    curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1Hl9JvIkC0WmAr0iM-Op2KmQC6Ha4allB" -o Import/AdditionalMaps_${CARLA_VERSION}.tar.gz && \
-    cp Util/ImportAssets.sh ./ && \
-    ./ImportAssets.sh && \
     cd .. && \
-    mv carla /tmp
-
+    rm -rf carla
 RUN ln -s /opt/carla
+
+RUN echo "export PS1='\[\033[01;32m\]carla2hdf5@dokcer\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /root/.bashrc
 
 ENV PYTHONPATH "${PYTHONPATH}:/opt/carla/PythonAPI/carla/dist/carla-${CARLA_EGG_VERSION}-py3.7-linux-x86_64.egg"
 

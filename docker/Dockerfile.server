@@ -14,29 +14,30 @@ RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y \
         sudo \
         git \
-        make \
-        build-essential \
-        clang-8 \
-        lld-8 \
-        g++-7 \
-        cmake \
-        wget \
-        curl && \
+        aria2 && \
    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone -b 0.9.11 https://github.com/carla-simulator/carla.git && \
-    cd carla && \
-    curl -c /tmp/cookie "https://drive.google.com/uc?export=download&id=1Hl9JvIkC0WmAr0iM-Op2KmQC6Ha4allB" > /dev/null && \
-    CODE="$(awk '/_warning_/ {print $NF}' /tmp/cookie)" && \
-    curl -Lb /tmp/cookie "https://drive.google.com/uc?export=download&confirm=${CODE}&id=1Hl9JvIkC0WmAr0iM-Op2KmQC6Ha4allB" -o Import/AdditionalMaps_${CARLA_VERSION}.tar.gz && \
-    cp Util/ImportAssets.sh ./ && \
-    ./ImportAssets.sh
+RUN git clone -b 0.9.11 https://github.com/carla-simulator/carla.git
+    
 
+RUN chmod 777 /home/carla
 ARG DOCKER_UID=1001
 ARG DOCKER_USER=docker
 ARG DOCKER_PASSWORD=docker
 RUN useradd -m --uid ${DOCKER_UID} --groups sudo ${DOCKER_USER} && \
     echo ${DOCKER_USER}:${DOCKER_PASSWORD} | chpasswd
+
+RUN echo "export PS1='\[\033[01;32m\]carla-server@dokcer\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> /home/docker/.bashrc && \
+    echo 'alias carla-display="SDL_HINT_CUDA_DEVICE=0 ./CarlaUE4.sh -opengl"' >> /home/docker/.bashrc && \
+    echo 'alias carla-nodisplay="DISPLAY= SDL_VIDEODRIVER=offscreen SDL_HINT_CUDA_DEVICE=0 ./CarlaUE4.sh -opengl"' >> /home/docker/.bashrc
+
+ARG CARLA_VERSION="0.9.11"
+
+RUN cd /home/carla && \
+    aria2c -x 16 --summary-interval 1 --log-level debug \
+        https://carla-releases.s3.eu-west-3.amazonaws.com/Linux/AdditionalMaps_$CARLA_VERSION.tar.gz \
+        -o Import/AdditionalMaps_$CARLA_VERSION.tar.gz
+RUN ./ImportAssets.sh
 
 USER ${DOCKER_USER}

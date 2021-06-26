@@ -13,5 +13,3 @@ docker run \
   --name="carla-server-0.9.11" \
   carla-server:${CARLA_VERSION} \
   bash
-
-# bash -c "SDL_HINT_CUDA_DEVICE=0 ./CarlaUE4.sh -opengl"
