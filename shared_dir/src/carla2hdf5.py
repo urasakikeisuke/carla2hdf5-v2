@@ -278,25 +278,26 @@ class Carla2HDF5(QMainWindow):
                 else:
                     for idx in range(len(sensors_dicts)):
                         sensor_name, sensor_data = sensor_data_list[idx]
-                        sensor_type = sensor_name.split('-')[0].split('.')[-1]
+                        sensor_type: str = sensor_name.split('-')[0].split('.')[-1]
+                        frame_id: str = sensor_name.split("-")[-1]
                         stamp_nsec, stamp_sec = math.modf(sensor_data.timestamp)
                         if sensor_type == 'ray_cast':
-                            set_points(data_group, f'{sensor_name}', sensor_data.data, 'hero', int(stamp_sec), int(stamp_nsec), settings['MAP'])
+                            set_points(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
                         elif sensor_type == 'ray_cast_semantic':
-                            set_semantic3d(data_group, f'{sensor_name}', sensor_data.data[0], sensor_data.data[1], 'hero', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
+                            set_semantic3d(data_group, f'{sensor_name}', sensor_data.data[0], sensor_data.data[1], f'{frame_id}', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
                         elif sensor_type == 'rgb':
-                            set_bgr8(data_group, f'{sensor_name}', sensor_data.data, 'hero', int(stamp_sec), int(stamp_nsec))
+                            set_bgr8(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec))
                         elif sensor_type == 'depth':
-                            set_depth(data_group, f'{sensor_name}', sensor_data.data, 'hero', int(stamp_sec), int(stamp_nsec))
+                            set_depth(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec))
                         elif sensor_type == 'semantic_segmentation':
-                            set_semantic2d(data_group, f'{sensor_name}', sensor_data.data, 'hero', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec))
+                            set_semantic2d(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec))
                         else:
                             raise NotImplementedError
                     
                     location, rotation = self._convert_transform(hero_vehicle.get_transform())
                     set_pose(data_group, 'map2hero', location, rotation, 'map', 'hero', int(stamp_sec), int(stamp_nsec))
                     current_frame += 1
-                    qitems.setText(4, f"Processing... ({100*current_frame/settings['NUM_FRAMES']:5.1f} %)")
+                    qitems.setText(4, f"Processing... ({100 * current_frame / settings['NUM_FRAMES']:5.1f} %)")
     
         finally:
             self.world.apply_settings(original_world_settings)
