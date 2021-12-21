@@ -165,6 +165,7 @@ class Carla2HDF5(QMainWindow):
             'MAP': self.ui.map_comboBox.currentText(),
             'WEATHER': self.ui.weather_comboBox.currentText(),
             'SEED': self.ui.seed_spinBox.value(),
+            'OUTPUT_INTERVAL': self.ui.output_interval_spinBox.value(),
             'NUM_FRAMES': self.ui.num_frames_spinBox.value(),
             'NUM_NPC_VEHICLES': self.ui.num_npc_vehicles_spinBox.value(),
             'SAFE_SPAWN': self.ui.safe_spawn_checkBox.isChecked(),
@@ -176,17 +177,13 @@ class Carla2HDF5(QMainWindow):
             'HYBRID_PHYSICS_RADIUS': self.ui.hybrid_physics_radius_doubleSpinBox.value(),
             'SUPER_HERO': self.ui.super_hero_checkBox.isChecked(),
         }
-        items: QTreeWidgetItem = QTreeWidgetItem([f"{settings['MAP']}", f"{settings['WEATHER']}", f"{settings['SEED']}", f"{settings['NUM_FRAMES']}", f"Queued"])
+        items: QTreeWidgetItem = QTreeWidgetItem([f"{settings['MAP']}", f"{settings['WEATHER']}", f"{settings['SEED']}", f"{settings['NUM_FRAMES']}", f"{settings['OUTPUT_INTERVAL']}", f"Queued"])
         self.ui.queue_treeWidget.addTopLevelItem(items)
         self.queued_idx += 1
         settings['QITEMS'] = items
         self.queued_settings[f'{self.queued_idx}'] = settings
 
-    def _play_spinner(self) -> None:
-        # print(f'is_looping: {self.is_looping}')
-        # print(f'queued_idx            : {self.queued_idx}')
-        # print(f'queued_settings.keys(): {list(self.queued_settings.keys())}')
-        
+    def _play_spinner(self) -> None:      
         if self.is_looping:
             return
         if str(self.queued_idx) not in self.queued_settings.keys():
@@ -202,7 +199,7 @@ class Carla2HDF5(QMainWindow):
             return
         settings: Dict[str, Union[int, float, str, bool]] = self.queued_settings[f'{queued_idxs[0]}']
         qitems: QTreeWidgetItem = settings['QITEMS']
-        qitems.setText(4, 'Initializing...')
+        qitems.setText(5, 'Initializing...')
 
         random.seed(settings['SEED'])
 
@@ -260,8 +257,12 @@ class Carla2HDF5(QMainWindow):
 
             current_frame: int = 0
             while self.is_looping and current_frame < settings['NUM_FRAMES']:
-                data_group: h5py.Group = self.h5file.get_next_data_group()
                 world_frame: int = self.world.tick()
+
+                current_frame += 1
+
+                if current_frame % settings['OUTPUT_INTERVAL'] == 0:
+                    data_group: h5py.Group = self.h5file.get_next_data_group()
 
                 if settings['SUPER_HERO']:
                     if hero_vehicle.is_at_traffic_light():
@@ -276,28 +277,28 @@ class Carla2HDF5(QMainWindow):
                 except Empty:
                     pass
                 else:
-                    for idx in range(len(sensors_dicts)):
-                        sensor_name, sensor_data = sensor_data_list[idx]
-                        sensor_type: str = sensor_name.split('-')[0].split('.')[-1]
-                        frame_id: str = sensor_name.split("-")[-1]
-                        stamp_nsec, stamp_sec = math.modf(sensor_data.timestamp)
-                        if sensor_type == 'ray_cast':
-                            set_points(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
-                        elif sensor_type == 'ray_cast_semantic':
-                            set_semantic3d(data_group, f'{sensor_name}', sensor_data.data[0], sensor_data.data[1], f'{frame_id}', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
-                        elif sensor_type == 'rgb':
-                            set_bgr8(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec))
-                        elif sensor_type == 'depth':
-                            set_depth(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec))
-                        elif sensor_type == 'semantic_segmentation':
-                            set_semantic2d(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec))
-                        else:
-                            raise NotImplementedError
-                    
-                    location, rotation = self._convert_transform(hero_vehicle.get_transform())
-                    set_pose(data_group, 'map2hero', location, rotation, 'map', 'hero', int(stamp_sec), int(stamp_nsec))
-                    current_frame += 1
-                    qitems.setText(4, f"Processing... ({100 * current_frame / settings['NUM_FRAMES']:5.1f} %)")
+                    if current_frame % settings['OUTPUT_INTERVAL'] == 0:
+                        for idx in range(len(sensors_dicts)):
+                            sensor_name, sensor_data = sensor_data_list[idx]
+                            sensor_type: str = sensor_name.split('-')[0].split('.')[-1]
+                            frame_id: str = sensor_name.split("-")[-1]
+                            stamp_nsec, stamp_sec = math.modf(sensor_data.timestamp)
+                            if sensor_type == 'ray_cast':
+                                set_points(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
+                            elif sensor_type == 'ray_cast_semantic':
+                                set_semantic3d(data_group, f'{sensor_name}', sensor_data.data[0], sensor_data.data[1], f'{frame_id}', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec), settings['MAP'])
+                            elif sensor_type == 'rgb':
+                                set_bgr8(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec))
+                            elif sensor_type == 'depth':
+                                set_depth(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', int(stamp_sec), int(stamp_nsec))
+                            elif sensor_type == 'semantic_segmentation':
+                                set_semantic2d(data_group, f'{sensor_name}', sensor_data.data, f'{frame_id}', f'carla-{self.carla_client_version}', int(stamp_sec), int(stamp_nsec))
+                            else:
+                                raise NotImplementedError
+                        
+                        location, rotation = self._convert_transform(hero_vehicle.get_transform())
+                        set_pose(data_group, 'map2hero', location, rotation, 'map', 'hero', int(stamp_sec), int(stamp_nsec))
+                        qitems.setText(5, f"Processing... ({100 * current_frame / settings['NUM_FRAMES']:5.1f} %)")
     
         finally:
             self.world.apply_settings(original_world_settings)
@@ -320,7 +321,7 @@ class Carla2HDF5(QMainWindow):
                 json.dump(self.queued_settings[f'{queued_idxs[0]}'], f, indent=4, ensure_ascii=False, skipkeys=True)
             del self.queued_settings[f'{queued_idxs[0]}']
             self.is_looping = False
-            qitems.setText(4, f"Done")
+            qitems.setText(5, f"Done")
         
     def _convert_transform(self, transform: Any) -> numpy.ndarray:
         left_location = transform.location

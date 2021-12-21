@@ -6,17 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1152</width>
-    <height>822</height>
+    <width>1360</width>
+    <height>934</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>CARLA2HDF5</string>
+   <string>carla2hdf5_v2</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QGridLayout" name="main_gridLayout" rowstretch="1,6" columnstretch="5,5">
+     <layout class="QGridLayout" name="main_gridLayout" rowstretch="1,7" columnstretch="4,6">
       <item row="0" column="0">
        <widget class="QGroupBox" name="init_groupBox">
         <property name="title">
@@ -69,6 +69,9 @@
          </item>
          <item>
           <widget class="QPushButton" name="connect_pushButton">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>Connect</string>
            </property>
@@ -95,9 +98,9 @@
       <item row="0" column="1" rowspan="2">
        <widget class="QGroupBox" name="main_settings_groupBox">
         <property name="title">
-         <string>Settings</string>
+         <string>Task Settings</string>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,0,0,0,0,0,0,0,0,0,1">
+        <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1,1,1,1,1,1,1,1,1,2,25">
          <item>
           <layout class="QHBoxLayout" name="settings_1_horizontalLayout" stretch="1,3,1,3">
            <item>
@@ -108,7 +111,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="map_comboBox"/>
+            <widget class="QComboBox" name="map_comboBox">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="weather_label">
@@ -118,7 +125,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="weather_comboBox"/>
+            <widget class="QComboBox" name="weather_comboBox">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -130,7 +141,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="settings_2_horizontalLayout" stretch="1,4,1,4">
+          <layout class="QHBoxLayout" name="settings_2_horizontalLayout" stretch="1,4,1,4,1,4">
            <item>
             <widget class="QLabel" name="seed_label">
              <property name="text">
@@ -140,6 +151,9 @@
            </item>
            <item>
             <widget class="QSpinBox" name="seed_spinBox">
+             <property name="cursor">
+              <cursorShape>IBeamCursor</cursorShape>
+             </property>
              <property name="maximum">
               <number>429496729</number>
              </property>
@@ -161,7 +175,10 @@
            <item>
             <widget class="QSpinBox" name="num_frames_spinBox">
              <property name="suffix">
-              <string> </string>
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>1</number>
              </property>
              <property name="maximum">
               <number>429496729</number>
@@ -173,7 +190,41 @@
               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
              </property>
              <property name="value">
-              <number>3000</number>
+              <number>6000</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="output_interval_label">
+             <property name="text">
+              <string>Output Interval</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="output_interval_spinBox">
+             <property name="toolTip">
+              <string>この間隔でサンプリングします</string>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>429496729</number>
+             </property>
+             <property name="value">
+              <number>60</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="note_horizontalLayout">
+           <item>
+            <widget class="QLabel" name="note_label">
+             <property name="text">
+              <string>NOTE: The actual number of output frames is the specified number of frames divided by the interval.</string>
              </property>
             </widget>
            </item>
@@ -210,6 +261,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="safe_spawn_checkBox">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
               <string>Safe Spawn</string>
              </property>
@@ -309,6 +363,9 @@
            </item>
            <item>
             <widget class="QDoubleSpinBox" name="global_distance_doubleSpinBox">
+             <property name="toolTip">
+              <string>車両間の間隔を設定します</string>
+             </property>
              <property name="suffix">
               <string> [m]</string>
              </property>
@@ -322,6 +379,9 @@
            </item>
            <item>
             <widget class="QCheckBox" name="hybrid_physics_checkBox">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="text">
               <string>Hybrid Physics (HP)</string>
              </property>
@@ -355,6 +415,12 @@
            </item>
            <item>
             <widget class="QCheckBox" name="super_hero_checkBox">
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
+             <property name="toolTip">
+              <string>オンにすると</string>
+             </property>
              <property name="text">
               <string>Super Hero</string>
              </property>
@@ -367,8 +433,17 @@
          </item>
          <item>
           <widget class="QPushButton" name="add_queue_pushButton">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
-            <string>Add Queue</string>
+            <string>Add Task</string>
            </property>
            <property name="shortcut">
             <string>Ctrl+Shift+E</string>
@@ -384,8 +459,26 @@
             <item>
              <widget class="QTreeWidget" name="queue_treeWidget">
               <property name="columnCount">
-               <number>5</number>
+               <number>6</number>
               </property>
+              <attribute name="headerVisible">
+               <bool>true</bool>
+              </attribute>
+              <attribute name="headerCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="headerDefaultSectionSize">
+               <number>92</number>
+              </attribute>
+              <attribute name="headerHighlightSections">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="headerShowSortIndicator" stdset="0">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="headerStretchLastSection">
+               <bool>true</bool>
+              </attribute>
               <column>
                <property name="text">
                 <string>Map</string>
@@ -404,6 +497,11 @@
               <column>
                <property name="text">
                 <string># Frames</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Interval</string>
                </property>
               </column>
               <column>
@@ -428,7 +526,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1152</width>
+     <width>1360</width>
      <height>28</height>
     </rect>
    </property>
