@@ -47,9 +47,9 @@
 ### 6. GUI上で    
 
     a. 左側のInitial Settingsで`Connect`を押しサーバと接続する  
-    b. 右側のSettingsの`Map`でマップを、`Weather`で天候を選択する  
-    c. 右側のSettingsの`# Freames`で保存する枚数を、`# NPC *`でNPCの数を選択する  
-    d. `Add Queue`を押すことで開始される  
+    b. 右側のTask Settingsの`Map`でマップを、`Weather`で天候を選択する  
+    c. 右側のTask Settingsの`# Freames`で保存する枚数を、`# NPC *`でNPCの数を選択する  
+    d. `Add Task`を押すことで開始される  
 
 ### 7. 終了したらX Window Systemへのアクセス許可を取り消す（dockerの外で）
 
