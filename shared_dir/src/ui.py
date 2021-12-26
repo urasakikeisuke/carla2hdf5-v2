@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1152, 822)
+        MainWindow.resize(1360, 934)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -60,6 +60,7 @@ class Ui_MainWindow(object):
 
         self.connect_pushButton = QPushButton(self.init_groupBox)
         self.connect_pushButton.setObjectName(u"connect_pushButton")
+        self.connect_pushButton.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.verticalLayout.addWidget(self.connect_pushButton)
 
@@ -91,6 +92,7 @@ class Ui_MainWindow(object):
 
         self.map_comboBox = QComboBox(self.main_settings_groupBox)
         self.map_comboBox.setObjectName(u"map_comboBox")
+        self.map_comboBox.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.settings_1_horizontalLayout.addWidget(self.map_comboBox)
 
@@ -101,6 +103,7 @@ class Ui_MainWindow(object):
 
         self.weather_comboBox = QComboBox(self.main_settings_groupBox)
         self.weather_comboBox.setObjectName(u"weather_comboBox")
+        self.weather_comboBox.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.settings_1_horizontalLayout.addWidget(self.weather_comboBox)
 
@@ -127,9 +130,10 @@ class Ui_MainWindow(object):
 
         self.seed_spinBox = QSpinBox(self.main_settings_groupBox)
         self.seed_spinBox.setObjectName(u"seed_spinBox")
+        self.seed_spinBox.setCursor(QCursor(Qt.IBeamCursor))
         self.seed_spinBox.setMaximum(429496729)
         self.seed_spinBox.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
-        self.seed_spinBox.setValue(1000)
+        self.seed_spinBox.setValue(3407)
 
         self.settings_2_horizontalLayout.addWidget(self.seed_spinBox)
 
@@ -140,19 +144,45 @@ class Ui_MainWindow(object):
 
         self.num_frames_spinBox = QSpinBox(self.main_settings_groupBox)
         self.num_frames_spinBox.setObjectName(u"num_frames_spinBox")
+        self.num_frames_spinBox.setMinimum(1)
         self.num_frames_spinBox.setMaximum(429496729)
         self.num_frames_spinBox.setSingleStep(100)
         self.num_frames_spinBox.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
-        self.num_frames_spinBox.setValue(3000)
+        self.num_frames_spinBox.setValue(6000)
 
         self.settings_2_horizontalLayout.addWidget(self.num_frames_spinBox)
+
+        self.output_interval_label = QLabel(self.main_settings_groupBox)
+        self.output_interval_label.setObjectName(u"output_interval_label")
+
+        self.settings_2_horizontalLayout.addWidget(self.output_interval_label)
+
+        self.output_interval_spinBox = QSpinBox(self.main_settings_groupBox)
+        self.output_interval_spinBox.setObjectName(u"output_interval_spinBox")
+        self.output_interval_spinBox.setMinimum(1)
+        self.output_interval_spinBox.setMaximum(429496729)
+        self.output_interval_spinBox.setValue(60)
+
+        self.settings_2_horizontalLayout.addWidget(self.output_interval_spinBox)
 
         self.settings_2_horizontalLayout.setStretch(0, 1)
         self.settings_2_horizontalLayout.setStretch(1, 4)
         self.settings_2_horizontalLayout.setStretch(2, 1)
         self.settings_2_horizontalLayout.setStretch(3, 4)
+        self.settings_2_horizontalLayout.setStretch(4, 1)
+        self.settings_2_horizontalLayout.setStretch(5, 4)
 
         self.verticalLayout_4.addLayout(self.settings_2_horizontalLayout)
+
+        self.note_horizontalLayout = QHBoxLayout()
+        self.note_horizontalLayout.setObjectName(u"note_horizontalLayout")
+        self.note_label = QLabel(self.main_settings_groupBox)
+        self.note_label.setObjectName(u"note_label")
+
+        self.note_horizontalLayout.addWidget(self.note_label)
+
+
+        self.verticalLayout_4.addLayout(self.note_horizontalLayout)
 
         self.line_2 = QFrame(self.main_settings_groupBox)
         self.line_2.setObjectName(u"line_2")
@@ -178,6 +208,7 @@ class Ui_MainWindow(object):
 
         self.safe_spawn_checkBox = QCheckBox(self.main_settings_groupBox)
         self.safe_spawn_checkBox.setObjectName(u"safe_spawn_checkBox")
+        self.safe_spawn_checkBox.setCursor(QCursor(Qt.PointingHandCursor))
         self.safe_spawn_checkBox.setAutoRepeat(False)
         self.safe_spawn_checkBox.setTristate(False)
 
@@ -259,6 +290,7 @@ class Ui_MainWindow(object):
 
         self.hybrid_physics_checkBox = QCheckBox(self.main_settings_groupBox)
         self.hybrid_physics_checkBox.setObjectName(u"hybrid_physics_checkBox")
+        self.hybrid_physics_checkBox.setCursor(QCursor(Qt.PointingHandCursor))
         self.hybrid_physics_checkBox.setChecked(True)
 
         self.settings_5_horizontalLayout.addWidget(self.hybrid_physics_checkBox)
@@ -278,6 +310,7 @@ class Ui_MainWindow(object):
 
         self.super_hero_checkBox = QCheckBox(self.main_settings_groupBox)
         self.super_hero_checkBox.setObjectName(u"super_hero_checkBox")
+        self.super_hero_checkBox.setCursor(QCursor(Qt.PointingHandCursor))
         self.super_hero_checkBox.setChecked(True)
 
         self.settings_5_horizontalLayout.addWidget(self.super_hero_checkBox)
@@ -287,6 +320,12 @@ class Ui_MainWindow(object):
 
         self.add_queue_pushButton = QPushButton(self.main_settings_groupBox)
         self.add_queue_pushButton.setObjectName(u"add_queue_pushButton")
+        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.add_queue_pushButton.sizePolicy().hasHeightForWidth())
+        self.add_queue_pushButton.setSizePolicy(sizePolicy)
+        self.add_queue_pushButton.setCursor(QCursor(Qt.PointingHandCursor))
 
         self.verticalLayout_4.addWidget(self.add_queue_pushButton)
 
@@ -296,28 +335,45 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.queue_treeWidget = QTreeWidget(self.queue_groupBox)
         self.queue_treeWidget.setObjectName(u"queue_treeWidget")
-        self.queue_treeWidget.setColumnCount(5)
+        self.queue_treeWidget.setColumnCount(6)
+        self.queue_treeWidget.header().setVisible(True)
+        self.queue_treeWidget.header().setCascadingSectionResizes(False)
+        self.queue_treeWidget.header().setDefaultSectionSize(92)
+        self.queue_treeWidget.header().setHighlightSections(False)
+        self.queue_treeWidget.header().setProperty("showSortIndicator", False)
+        self.queue_treeWidget.header().setStretchLastSection(True)
 
         self.verticalLayout_5.addWidget(self.queue_treeWidget)
 
 
         self.verticalLayout_4.addWidget(self.queue_groupBox)
 
-        self.verticalLayout_4.setStretch(10, 1)
+        self.verticalLayout_4.setStretch(0, 1)
+        self.verticalLayout_4.setStretch(1, 1)
+        self.verticalLayout_4.setStretch(2, 1)
+        self.verticalLayout_4.setStretch(3, 1)
+        self.verticalLayout_4.setStretch(4, 1)
+        self.verticalLayout_4.setStretch(5, 1)
+        self.verticalLayout_4.setStretch(6, 1)
+        self.verticalLayout_4.setStretch(7, 1)
+        self.verticalLayout_4.setStretch(8, 1)
+        self.verticalLayout_4.setStretch(9, 1)
+        self.verticalLayout_4.setStretch(10, 2)
+        self.verticalLayout_4.setStretch(11, 25)
 
         self.main_gridLayout.addWidget(self.main_settings_groupBox, 0, 1, 2, 1)
 
         self.main_gridLayout.setRowStretch(0, 1)
-        self.main_gridLayout.setRowStretch(1, 6)
-        self.main_gridLayout.setColumnStretch(0, 5)
-        self.main_gridLayout.setColumnStretch(1, 5)
+        self.main_gridLayout.setRowStretch(1, 7)
+        self.main_gridLayout.setColumnStretch(0, 4)
+        self.main_gridLayout.setColumnStretch(1, 6)
 
         self.verticalLayout_2.addLayout(self.main_gridLayout)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1152, 28))
+        self.menubar.setGeometry(QRect(0, 0, 1360, 28))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -329,7 +385,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"CARLA2HDF5", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"carla2hdf5_v2", None))
         self.init_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Initial Settings", None))
         self.ip_address_label.setText(QCoreApplication.translate("MainWindow", u"IP Address", None))
         self.ip_address_lineEdit.setText(QCoreApplication.translate("MainWindow", u"localhost", None))
@@ -339,12 +395,17 @@ class Ui_MainWindow(object):
         self.connect_pushButton.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+Shift+C", None))
 #endif // QT_CONFIG(shortcut)
         self.tf_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Transform", None))
-        self.main_settings_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Settings", None))
+        self.main_settings_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Task Settings", None))
         self.map_label.setText(QCoreApplication.translate("MainWindow", u"Map", None))
         self.weather_label.setText(QCoreApplication.translate("MainWindow", u"Weather", None))
         self.seed_label.setText(QCoreApplication.translate("MainWindow", u"Seed", None))
         self.num_frames_label.setText(QCoreApplication.translate("MainWindow", u"# Frames", None))
         self.num_frames_spinBox.setSuffix("")
+        self.output_interval_label.setText(QCoreApplication.translate("MainWindow", u"Output Interval", None))
+#if QT_CONFIG(tooltip)
+        self.output_interval_spinBox.setToolTip(QCoreApplication.translate("MainWindow", u"\u3053\u306e\u9593\u9694\u3067\u30b5\u30f3\u30d7\u30ea\u30f3\u30b0\u3057\u307e\u3059", None))
+#endif // QT_CONFIG(tooltip)
+        self.note_label.setText(QCoreApplication.translate("MainWindow", u"NOTE: The actual number of output frames is the specified number of frames divided by the interval.", None))
         self.num_npc_vehicles_label.setText(QCoreApplication.translate("MainWindow", u"# NPC Vehicles", None))
         self.safe_spawn_checkBox.setText(QCoreApplication.translate("MainWindow", u"Safe Spawn", None))
         self.num_npc_walkers_label.setText(QCoreApplication.translate("MainWindow", u"# NPC Walkers", None))
@@ -353,18 +414,25 @@ class Ui_MainWindow(object):
         self.road_crossing_walker_label.setText(QCoreApplication.translate("MainWindow", u"Road Crossing Walker", None))
         self.road_crossing_walker_doubleSpinBox.setSuffix(QCoreApplication.translate("MainWindow", u" [%]", None))
         self.global_distance_label.setText(QCoreApplication.translate("MainWindow", u"Global Distance", None))
+#if QT_CONFIG(tooltip)
+        self.global_distance_doubleSpinBox.setToolTip(QCoreApplication.translate("MainWindow", u"\u8eca\u4e21\u9593\u306e\u9593\u9694\u3092\u8a2d\u5b9a\u3057\u307e\u3059", None))
+#endif // QT_CONFIG(tooltip)
         self.global_distance_doubleSpinBox.setSuffix(QCoreApplication.translate("MainWindow", u" [m]", None))
         self.hybrid_physics_checkBox.setText(QCoreApplication.translate("MainWindow", u"Hybrid Physics (HP)", None))
         self.hybrid_physics_radius_label.setText(QCoreApplication.translate("MainWindow", u"HP Radius", None))
         self.hybrid_physics_radius_doubleSpinBox.setSuffix(QCoreApplication.translate("MainWindow", u" [m]", None))
+#if QT_CONFIG(tooltip)
+        self.super_hero_checkBox.setToolTip(QCoreApplication.translate("MainWindow", u"\u30aa\u30f3\u306b\u3059\u308b\u3068", None))
+#endif // QT_CONFIG(tooltip)
         self.super_hero_checkBox.setText(QCoreApplication.translate("MainWindow", u"Super Hero", None))
-        self.add_queue_pushButton.setText(QCoreApplication.translate("MainWindow", u"Add Queue", None))
+        self.add_queue_pushButton.setText(QCoreApplication.translate("MainWindow", u"Add Task", None))
 #if QT_CONFIG(shortcut)
         self.add_queue_pushButton.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+Shift+E", None))
 #endif // QT_CONFIG(shortcut)
         self.queue_groupBox.setTitle(QCoreApplication.translate("MainWindow", u"Queue", None))
         ___qtreewidgetitem = self.queue_treeWidget.headerItem()
-        ___qtreewidgetitem.setText(4, QCoreApplication.translate("MainWindow", u"Status", None));
+        ___qtreewidgetitem.setText(5, QCoreApplication.translate("MainWindow", u"Status", None));
+        ___qtreewidgetitem.setText(4, QCoreApplication.translate("MainWindow", u"Interval", None));
         ___qtreewidgetitem.setText(3, QCoreApplication.translate("MainWindow", u"# Frames", None));
         ___qtreewidgetitem.setText(2, QCoreApplication.translate("MainWindow", u"Seed", None));
         ___qtreewidgetitem.setText(1, QCoreApplication.translate("MainWindow", u"Weather", None));
